@@ -25,6 +25,7 @@ GOOGLE_API_URL = "https://www.googleapis.com/language/translate/v2"
 
 urls = (
   '/translate', 'translate',
+  '/test', 'test',
 )
 
 logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG, format="%(message)s")
@@ -75,7 +76,12 @@ class translate:
             json_result = json.dumps(cached_translation['result'])
             logging.info("%s [%s] hit %s > %s \"%s\"" % (duration.total_seconds(), end_time, source, target, translated_text[:LOG_N_CHARS]))
             return json_result
-            
+
+class test:
+    def GET(self):
+        ''' Test mongo connection and exit '''
+        return translate_collection.count()
+
          
 
 if __name__ == "__main__":
